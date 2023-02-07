@@ -8,7 +8,9 @@ import { auth, db } from "@/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import Chat from "./Chat";
+import { Inter } from "@next/font/google";
 
+const inter = Inter({ subsets: ["latin"] });
 function SideBar() {
   const [user] = useAuthState(auth);
   const userChatRef = db
@@ -63,10 +65,14 @@ function SideBar() {
           Start a new chat
         </SidebarButton>
       </div>
-      {/* Lists of Chat */}
-      {chatsSnapshot?.docs?.map((chat) => {
-        return <Chat key={chat?.id} id={chat?.id} users={chat?.data().users} />;
-      })}
+      <div className={inter.className}>
+        {/* Lists of Chat */}
+        {chatsSnapshot?.docs?.map((chat) => {
+          return (
+            <Chat key={chat?.id} id={chat?.id} users={chat?.data().users} />
+          );
+        })}
+      </div>
     </Container>
   );
 }
